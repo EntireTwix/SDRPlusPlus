@@ -64,28 +64,28 @@ namespace ImGui {
         void updatePalletteFromArray(float* colors, int colorCount);
 
         void setCenterFrequency(double freq);
-        double getCenterFrequency();
+        double getCenterFrequency() const;
 
         void setBandwidth(double bandWidth);
-        double getBandwidth();
+        double getBandwidth() const;
 
         void setViewBandwidth(double bandWidth);
-        double getViewBandwidth();
+        double getViewBandwidth() const;
 
         void setViewOffset(double offset);
-        double getViewOffset();
+        double getViewOffset() const;
 
         void setFFTMin(float min);
-        float getFFTMin();
+        float getFFTMin() const;
 
         void setFFTMax(float max);
-        float getFFTMax();
+        float getFFTMax() const;
 
         void setWaterfallMin(float min);
-        float getWaterfallMin();
+        float getWaterfallMin() const;
 
         void setWaterfallMax(float max);
-        float getWaterfallMax();
+        float getWaterfallMax() const;
 
         void setZoom(double zoomLevel);
         void setOffset(double zoomOffset);
@@ -101,7 +101,7 @@ namespace ImGui {
         void hideBandplan();
 
         void setFFTHeight(int height);
-        int getFFTHeight();
+        int getFFTHeight() const;
 
         void setRawFFTSize(int size, bool lock = true);
 
