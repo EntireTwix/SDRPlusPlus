@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <spdlog/spdlog.h>
 
-ModuleManager::Module_t ModuleManager::loadModule(std::string path) {
+ModuleManager::Module_t ModuleManager::loadModule(const std::string &path) {
     Module_t mod;
     if (!std::filesystem::exists(path)) {
         spdlog::error("{0} does not exist", path);
@@ -79,7 +79,7 @@ ModuleManager::Module_t ModuleManager::loadModule(std::string path) {
     return mod;
 }
 
-void ModuleManager::createInstance(std::string name, std::string module) {
+void ModuleManager::createInstance(const std::string &name, const std::string &module) {
     if (modules.find(module) == modules.end()) {
         spdlog::error("Module '{0}' doesn't exist", module);
         return;
@@ -99,15 +99,15 @@ void ModuleManager::createInstance(std::string name, std::string module) {
     instances[name] = inst;
 }
 
-void ModuleManager::deleteInstance(std::string name) {
+void ModuleManager::deleteInstance(const std::string &name) {
     spdlog::error("DELETE INSTANCE NOT IMPLEMENTED");
 }
 
-void ModuleManager::deleteInstance(ModuleManager::Instance* instance) {
+void ModuleManager::deleteInstance(ModuleManager::Instance *instance) {
     spdlog::error("DELETE INSTANCE NOT IMPLEMENTED");
 }
 
-void ModuleManager::enableInstance(std::string name) {
+void ModuleManager::enableInstance(const std::string &name) {
     if (instances.find(name) == instances.end()) {
         spdlog::error("Cannot enable '{0}', instance doesn't exist", name);
         return;
@@ -115,7 +115,7 @@ void ModuleManager::enableInstance(std::string name) {
     instances[name].instance->enable();
 }
 
-void ModuleManager::disableInstance(std::string name) {
+void ModuleManager::disableInstance(const std::string &name) {
     if (instances.find(name) == instances.end()) {
         spdlog::error("Cannot disable '{0}', instance doesn't exist", name);
         return;
@@ -123,7 +123,7 @@ void ModuleManager::disableInstance(std::string name) {
     instances[name].instance->disable();
 }
 
-bool ModuleManager::instanceEnabled(std::string name) {
+bool ModuleManager::instanceEnabled(const std::string &name) {
     if (instances.find(name) == instances.end()) {
         spdlog::error("Cannot check if '{0}' is enabled, instance doesn't exist", name);
         return false;
@@ -131,12 +131,12 @@ bool ModuleManager::instanceEnabled(std::string name) {
     return instances[name].instance->isEnabled();
 }
 
-int ModuleManager::countModuleInstances(std::string module) {
+int ModuleManager::countModuleInstances(const std::string &module) const {
     if (modules.find(module) == modules.end()) {
         spdlog::error("Cannot count instances of '{0}', Module doesn't exist", module);
         return -1;
     }
-    ModuleManager::Module_t mod = modules[module];
+    ModuleManager::Module_t mod = modules.at(module);
     int count = 0;
     for (auto const& [name, instance] : instances) {
         if (instance.module == mod) { count++; }
