@@ -205,7 +205,7 @@ namespace ImGui {
     }
 
     inline void WaterFall::processInputs() { //inlined because only called once
-        WaterfallVFO* vfo = nullptr;
+        WaterfallVFO* vfo = NULL;
         if (selectedVFO != "") {
             vfo = vfos[selectedVFO];
         }
@@ -295,7 +295,7 @@ namespace ImGui {
     }
 
     void WaterFall::updateWaterfallFb() { 
-        if (!waterfallVisible || rawFFTs == nullptr) {
+        if (!waterfallVisible || rawFFTs == NULL) {
             return;
         }
         const double offsetRatio = viewOffset / (wholeBandwidth / 2.0);
@@ -538,7 +538,7 @@ namespace ImGui {
     }
 
     float* WaterFall::getFFTBuffer() {
-        if (rawFFTs == nullptr) { return nullptr; }
+        if (rawFFTs == NULL) { return NULL; }
         buf_mtx.lock(); //this seems dangerous
         if (waterfallVisible) {
             currentFFTLine--;
@@ -843,11 +843,11 @@ namespace ImGui {
         
     }
 
-    void WaterfallVFO::updateDrawingVars(double viewBandwidth, float dataWidth, double viewOffset, ImVec2 widgetPos, int fftHeight) {
-        double width = (bandwidth / viewBandwidth) * (double)dataWidth;
-        int center = roundf((((centerOffset - viewOffset) / (viewBandwidth / 2.0)) + 1.0) * ((double)dataWidth / 2.0));
-        int left = roundf((((lowerOffset - viewOffset) / (viewBandwidth / 2.0)) + 1.0) * ((double)dataWidth / 2.0));
-        int right = roundf((((upperOffset - viewOffset) / (viewBandwidth / 2.0)) + 1.0) * ((double)dataWidth / 2.0));
+    void WaterfallVFO::updateDrawingVars(double viewBandwidth, double dataWidth, double viewOffset, ImVec2 widgetPos, int fftHeight) {
+        double width = (bandwidth / viewBandwidth) * dataWidth;
+        int center = roundf((((centerOffset - viewOffset) / (viewBandwidth / 2.0)) + 1.0) * (dataWidth / 2.0));
+        int left = roundf((((lowerOffset - viewOffset) / (viewBandwidth / 2.0)) + 1.0) * (dataWidth / 2.0));
+        int right = roundf((((upperOffset - viewOffset) / (viewBandwidth / 2.0)) + 1.0) * (dataWidth / 2.0));
 
         if (left >= 0 && left < dataWidth && reference == REF_LOWER) {
             lineMin = ImVec2(widgetPos.x + 50 + left, widgetPos.y + 9);
